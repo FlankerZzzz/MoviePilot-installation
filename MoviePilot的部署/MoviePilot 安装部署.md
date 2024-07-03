@@ -138,7 +138,7 @@ os读取文件的底层步骤是：用户态 -> path -> 内核态 -> 获取inode
 
 > 交互拓扑  
 
-![test][https://github.com/FlankerZzzz/Flanker-blog/blob/main/test.png]
+<img src="https://github.com/FlankerZzzz/Flanker-blog/blob/main/test.png"
 
 
 
