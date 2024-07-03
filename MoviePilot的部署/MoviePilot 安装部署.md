@@ -138,7 +138,37 @@ os读取文件的底层步骤是：用户态 -> path -> 内核态 -> 获取inode
 
 > 交互拓扑  
 
-<img src="https://github.com/FlankerZzzz/Flanker-blog/blob/main/test.png"
+<img src="https://github.com/FlankerZzzz/Flanker-blog/blob/main/test.png"  
+从逻辑上来说，我给mp发消息，mp给我发消息都需要经过中间节点nginx的双向反代，下面上ng配置
 
+```shell
+    server {
+        listen       12345; #nginx入端口
+        server_name  localhost;
 
+        resolver 114.114.114.114 valid=5s; #手动强制DNS解析 并有效期5s
+        set $flanker http://domain:port; #ddns域名
+        location /api/v1/message/ {
+         proxy_pass $flanker;  
+}
+        location /cgi-bin/gettoken {
+          proxy_pass https://qyapi.weixin.qq.com;
+}                            
+        location /cgi-bin/message/send {
+          proxy_pass https://qyapi.weixin.qq.com;
+}
+        location  /cgi-bin/menu/create {
+          proxy_pass https://qyapi.weixin.qq.com;
+}
+```
+解释：当用户发送消息时，企微服务器会将消息发送到http://nginx:12345/api/v1/message/ 这个接口上  
+Nginx接到请求后转发至http://domain:port/api/v1/message/ 也就是mp的消息接口  
+MP发起搜索，返回结果，发送消息  
+http://nginx:12345/cgi-bin/gettoken ng转发https://qyapi.weixin.qq.com/cgi-bin/gettoken  
+http://nginx:12345/cgi-bin/message/send ng转发https://qyapi.weixin.qq.com/cgi-bin/message/send  
+http://nginx:12345/cgi-bin/menu/create ng转发https://qyapi.weixin.qq.com/cgi-bin/menu/create  
 
+写不动了。。企微配置，将对应的信息填入mp通知配置里，代理地址为http://nginx:12345
+企业微信创建应用，把nginx地址添加到企业可信IP，api接收消息里配置 http://nginx:12345/api/v1/message/，Token和EncodingAESKey填到对应mp配置里面
+
+> 关于DDNS在nginx里的配置，我查阅资料发现，nginx只会在初次运行时进行一次解析，如果nginx运行过程当中ddns对应地址发生改变，nginx无法自动更新解析，所以在配置时指定 resolver 不一定要用114，选你连通性好的即可，这个配置我已经测试很多次了，很完美
