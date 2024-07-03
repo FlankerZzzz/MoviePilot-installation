@@ -137,7 +137,7 @@ os读取文件的底层步骤是：用户态 -> path -> 内核态 -> 获取inode
 3. 我假定你能理解上面我说的内容，并且家庭内已经拥有动态公网IP和DDNS域名，那么解决方案就是在固定公网下部署一台nginx做双向反代
 
 > 交互拓扑
-[test][1]
+[test][https://github.com/FlankerZzzz/Flanker-blog/blob/main/test.png]
 
 
 
