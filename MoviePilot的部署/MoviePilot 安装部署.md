@@ -138,7 +138,7 @@ os读取文件的底层步骤是：用户态 -> path -> 内核态 -> 获取inode
 
 > 交互拓扑  
 
-<img src="https://github.com/FlankerZzzz/Flanker-blog/blob/main/test.png"  
+<img src="https://github.com/FlankerZzzz/Flanker-blog/blob/main/MoviePilot%E7%9A%84%E9%83%A8%E7%BD%B2/test.png">
 从逻辑上来说，我给mp发消息，mp给我发消息都需要经过中间节点nginx的双向反代，下面上ng配置
 
 ```shell
