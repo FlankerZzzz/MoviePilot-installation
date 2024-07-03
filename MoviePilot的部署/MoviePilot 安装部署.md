@@ -172,3 +172,5 @@ http://nginx:12345/cgi-bin/menu/create ng转发https://qyapi.weixin.qq.com/cgi-b
 企业微信创建应用，把nginx地址添加到企业可信IP，api接收消息里配置 http://nginx:12345/api/v1/message/，Token和EncodingAESKey填到对应mp配置里面
 
 > 关于DDNS在nginx里的配置，我查阅资料发现，nginx只会在初次运行时进行一次解析，如果nginx运行过程当中ddns对应地址发生改变，nginx无法自动更新解析，所以在配置时指定 resolver 不一定要用114，选你连通性好的即可，这个配置我已经测试很多次了，很完美
+[root@TXyun-Flanker nginx]# ./sbin/nginx -v
+nginx version: nginx/1.27.0
