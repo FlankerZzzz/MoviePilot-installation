@@ -3,7 +3,7 @@
 # Cloudflare API credentials
 CF_API_TOKEN="your-api-token"
 CF_ZONE_ID="your-zone-id"
-CF_RECORD_ID="your-record-id"  # 记录ID假定不变
+CF_RECORD_ID="your-record-id" #DDNS record
 CF_RECORD_NAME="your-domain.com"
 
 # 获取当前公网IP
